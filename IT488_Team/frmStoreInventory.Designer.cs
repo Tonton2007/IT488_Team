@@ -41,6 +41,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnGetProduct = new System.Windows.Forms.Button();
             this.txtProductCode = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtLocation = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -105,7 +107,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(37, 256);
+            this.btnAdd.Location = new System.Drawing.Point(36, 285);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(96, 36);
             this.btnAdd.TabIndex = 8;
@@ -115,7 +117,7 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(166, 256);
+            this.btnModify.Location = new System.Drawing.Point(166, 285);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(88, 36);
             this.btnModify.TabIndex = 9;
@@ -125,7 +127,8 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(294, 256);
+            this.btnDelete.Enabled = false;
+            this.btnDelete.Location = new System.Drawing.Point(294, 285);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 36);
             this.btnDelete.TabIndex = 10;
@@ -135,7 +138,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(499, 256);
+            this.btnExit.Location = new System.Drawing.Point(508, 285);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 36);
             this.btnExit.TabIndex = 11;
@@ -160,11 +163,32 @@
             this.txtProductCode.Size = new System.Drawing.Size(100, 26);
             this.txtProductCode.TabIndex = 13;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 238);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(74, 20);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Location:";
+            // 
+            // txtLocation
+            // 
+            this.txtLocation.Location = new System.Drawing.Point(141, 238);
+            this.txtLocation.Name = "txtLocation";
+            this.txtLocation.ReadOnly = true;
+            this.txtLocation.Size = new System.Drawing.Size(184, 26);
+            this.txtLocation.TabIndex = 15;
+            // 
             // frmStoreInventory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(671, 326);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(671, 362);
+            this.Controls.Add(this.txtLocation);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtProductCode);
             this.Controls.Add(this.btnGetProduct);
             this.Controls.Add(this.btnExit);
@@ -179,7 +203,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmStoreInventory";
-            this.Text = "Store Inventory";
+            this.Text = "Track-It";
+            this.Load += new System.EventHandler(this.frmStoreInventory_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -200,6 +225,8 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnGetProduct;
         private System.Windows.Forms.TextBox txtProductCode;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtLocation;
     }
 }
 

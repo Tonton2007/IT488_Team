@@ -33,6 +33,7 @@ namespace IT488_Team
         {
             // display the product information
             txtProductCode.Text = this.Product.ProductCode;
+            txtLocation.Text = this.Product.StorLocation;
             txtDescription.Text = this.Product.Description;
             txtUnitPrice.Text = this.Product.UnitPrice.ToString();
             txtOnHand.Text = this.Product.OnHandQuantity.ToString();
@@ -58,13 +59,15 @@ namespace IT488_Team
         {
             bool success = true;
             string errorMessage = "";
+            
 
-            //errorMessage += Validator.IsPresent(txtProductCode.Text, txtProductCode.Tag.ToString());
-            //errorMessage += Validator.IsPresent(txtDescription.Text, txtDescription.Tag.ToString());
-            //errorMessage += Validator.IsPresent(txtUnitPrice.Text, txtUnitPrice.Tag.ToString());
-           // errorMessage += Validator.IsDecimal(txtUnitPrice.Text, txtUnitPrice.Tag.ToString());
-           // errorMessage += Validator.IsPresent(txtOnHand.Text, txtOnHand.Tag.ToString());
-           // errorMessage += Validator.IsInt32(txtOnHand.Text, txtOnHand.Tag.ToString());
+            errorMessage += Validator.IsPresent(txtProductCode.Text, txtProductCode.ToString());
+            errorMessage += Validator.IsPresent(txtLocation.Text, txtLocation.ToString());
+            errorMessage += Validator.IsPresent(txtDescription.Text, txtDescription.ToString());
+            errorMessage += Validator.IsPresent(txtUnitPrice.Text, txtUnitPrice.ToString());
+            errorMessage += Validator.IsDecimal(txtUnitPrice.Text, txtUnitPrice.ToString());
+            errorMessage += Validator.IsPresent(txtOnHand.Text, txtOnHand.ToString());
+            errorMessage += Validator.IsInt32(txtOnHand.Text, txtOnHand.ToString());
 
             if (errorMessage != "")
             {
@@ -77,6 +80,7 @@ namespace IT488_Team
         private void LoadProductData()
         {
             // load user entries in the Products property 
+            this.Product.StorLocation = txtLocation.Text;
             this.Product.ProductCode = txtProductCode.Text;
             this.Product.Description = txtDescription.Text;
             this.Product.UnitPrice = Convert.ToDecimal(txtUnitPrice.Text);
@@ -87,5 +91,6 @@ namespace IT488_Team
         {
             this.Close();
         }
+                
     }
 }

@@ -13,7 +13,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
-	<LangVersion>8.0</LangVersion> 
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,7 +61,7 @@
     <Compile Include="frmStoreInventory.Designer.cs">
       <DependentUpon>frmStoreInventory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataLayer\MMABooksDB.cs" />
+    <Compile Include="Models\DataLayer\TrackITDB.cs" />
     <Compile Include="Models\DataLayer\Product.cs" />
     <Compile Include="Models\DataLayer\ProductDB.cs" />
     <Compile Include="Program.cs" />

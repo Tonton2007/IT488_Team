@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace IT488_Team
 {
     public static class Validator
     {
-        public static string LineEnd { get; set; } = "\n";
+        public static string LineEnd { get; set; } = "\n"; 
+        
 
         public static string IsPresent(string value, string name)
         {
+            //changing "" to ""
             string msg = "";
             if (value == "")
             {

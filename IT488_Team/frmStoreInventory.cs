@@ -9,8 +9,9 @@ namespace IT488_Team
     {
         public frmStoreInventory()
         {
-            InitializeComponent();
+                InitializeComponent();
         }
+
         Product selectedProduct;
 
         private void btnGetProduct_Click(object sender, EventArgs e)
@@ -25,11 +26,12 @@ namespace IT488_Team
                     {
                         MessageBox.Show("No product found with this code. " +
                             "Please try again.", "Product Not Found");
-                        this.ClearControls();
+                            ClearControls();
                     }
                     else
                     {
-                        this.DisplayProduct();
+                            DisplayProduct();
+                            btnDelete.Enabled = true;
                     }
                 }
                 catch (SqlException ex)
@@ -47,7 +49,7 @@ namespace IT488_Team
         {
             bool success = true;
             string errorMessage = "";
-            //errorMessage = Validator.IsPresent(txtProductCode.Text, txtProductCode.Tag.ToString());
+            errorMessage = Validator.IsPresent(txtProductCode.Text, txtProductCode.ToString());
             if (errorMessage != "")
             {
                 success = false;
@@ -60,6 +62,7 @@ namespace IT488_Team
         private void DisplayProduct()
         {
             txtProductCode.Text = selectedProduct.ProductCode;
+            txtLocation.Text = selectedProduct.StorLocation;
             txtDescription.Text = selectedProduct.Description;
             txtUnitPrice.Text = selectedProduct.UnitPrice.ToString("c");
             txtOnHand.Text = selectedProduct.OnHandQuantity.ToString();
@@ -70,6 +73,7 @@ namespace IT488_Team
         private void ClearControls()
         {
             txtProductCode.Text = "";
+            txtLocation.Text = "";
             txtDescription.Text = "";
             txtUnitPrice.Text = "";
             txtOnHand.Text = "";
@@ -83,6 +87,8 @@ namespace IT488_Team
                 AddProduct = true
             };
             DialogResult result = addModifyForm.ShowDialog();
+
+            // Determine if the OK button was clicked on the dialog box.
 
             if (result == DialogResult.OK)
             {
@@ -105,7 +111,7 @@ namespace IT488_Team
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            Product oldProduct = this.CloneProduct();
+            Product oldProduct = this.CloneProduct(); //saves the old values
             frmAddModify addModifyForm = new frmAddModify
             {
                 AddProduct = false,
@@ -143,6 +149,7 @@ namespace IT488_Team
             return new Product()
             {
                 ProductCode = selectedProduct.ProductCode,
+                StorLocation = selectedProduct.StorLocation,
                 Description = selectedProduct.Description,
                 UnitPrice = selectedProduct.UnitPrice,
                 OnHandQuantity = selectedProduct.OnHandQuantity
@@ -151,6 +158,7 @@ namespace IT488_Team
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            
             var desc = selectedProduct.Description;
             DialogResult result =
                 MessageBox.Show($"Delete {desc}?", "Confirm Delete",
@@ -212,5 +220,15 @@ namespace IT488_Team
         {
             this.Close();
         }
+
+        private void frmStoreInventory_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // private void txtProductCode_TextChanged(object sender, EventArgs e)
+        //{
+        // txtProductCode.Focus();
+        //
     }
 }
