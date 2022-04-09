@@ -17,7 +17,7 @@ namespace IT488_Team
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmStoreInventory());
+            Application.Run(new logIn());
             
         }
     }

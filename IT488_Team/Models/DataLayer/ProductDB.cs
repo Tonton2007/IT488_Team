@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace IT488_Team.Models.DataLayer
 {
@@ -58,7 +59,7 @@ namespace IT488_Team.Models.DataLayer
             string updateStatement = "UPDATE Products SET " +
                 "ProductCode = @NewProductCode, " +
                 "Description = @NewDescription, " +
-                "UnitPrice = @NewUnitPrice, " +    
+                "UnitPrice = @NewUnitPrice, " +
                 "OnHandQuantity = @NewOnHandQuantity, " +
                 "StorLocation = @NewStorLocation " +
                 "WHERE ProductCode = @OldProductCode " +
@@ -91,25 +92,26 @@ namespace IT488_Team.Models.DataLayer
                 "WHERE ProductCode = @ProductCode " +
                 "AND Description = @Description " +
                 "AND UnitPrice = @UnitPrice " +
-                "AND OnHandQuantity = @OnHandQuantity" +
-                "AND StorLocation = @StorLocation";
+                "AND OnHandQuantity = @OnHandQuantity " +
+                "AND StorLocation = @StorLocation ";
             using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
             using SqlCommand command = new SqlCommand(deleteStatement, connection);
             command.Parameters.AddWithValue("@ProductCode", product.ProductCode);
             command.Parameters.AddWithValue("@Description", product.Description);
             command.Parameters.AddWithValue("@UnitPrice", product.UnitPrice);
             command.Parameters.AddWithValue("@OnHandQuantity", product.OnHandQuantity);
+            command.Parameters.AddWithValue("@StorLocation", product.StorLocation);
             connection.Open();
             int count = command.ExecuteNonQuery();
 
             return (count > 0);
         }
-
+        //scan one at a time
         public static void SimulateConcurrentUpdate(string productCode)
         {
             string updateStatement =
                 "UPDATE Products " +
-                "SET OnHandQuantity = -1" +
+                "SET OnHandQuantity = OnHandQuantity - 1" +
                 "WHERE ProductCode = @ProductCode";
             using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
             using SqlCommand command = new SqlCommand(updateStatement, connection);
@@ -117,5 +119,48 @@ namespace IT488_Team.Models.DataLayer
             connection.Open();
             command.ExecuteNonQuery();
         }
+        public static bool LoginPassword(string theUsername, string thePassword)
+        {
+            var datasource = @"DESKTOP-JOLUDPU\SQLEXPRESS"; 
+            var database = "TrackIT";
+            string updateStatement =
+             @"Data Source=" + datasource + ";Initial Catalog=" + database + 
+             ";Persist Security Info=True;User ID=" + theUsername + ";Password=" + thePassword;
+
+            SqlConnection command = new SqlConnection(updateStatement);
+
+            try
+            {
+                command.Open();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+
+
+        }
+        public static DataTable  displayInvtory()
+        {
+            string viewInventory =
+                            "SELECT ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation FROM Products";
+            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
+            {
+                connection.Open();
+                using SqlDataAdapter command = new SqlDataAdapter(viewInventory, connection);
+                DataTable dt = new DataTable();
+                command.Fill(dt);
+                return dt;
+                
+
+            }
+            //frmStoreInventory.dataInventoryView1.DataSource = dt;
+            //dataGridView1.DataMember = "ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation";
+
+        }
     }
 }
+    
+
+        

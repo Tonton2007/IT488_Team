@@ -32,6 +32,7 @@ namespace IT488_Team
                     {
                             DisplayProduct();
                             btnDelete.Enabled = true;
+                            btnModify.Enabled = true;
                     }
                 }
                 catch (SqlException ex)
@@ -224,6 +225,11 @@ namespace IT488_Team
         private void frmStoreInventory_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnInventory_Click(object sender, EventArgs e)
+        {
+            dataInventoryView1.DataSource = ProductDB.displayInvtory();
         }
 
         // private void txtProductCode_TextChanged(object sender, EventArgs e)
