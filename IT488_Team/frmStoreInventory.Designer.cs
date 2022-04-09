@@ -43,6 +43,9 @@
             this.txtProductCode = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtLocation = new System.Windows.Forms.TextBox();
+            this.dataInventoryView1 = new System.Windows.Forms.DataGridView();
+            this.btnInventory = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataInventoryView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -75,7 +78,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 189);
+            this.label4.Location = new System.Drawing.Point(16, 168);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 20);
             this.label4.TabIndex = 3;
@@ -99,7 +102,7 @@
             // 
             // txtOnHand
             // 
-            this.txtOnHand.Location = new System.Drawing.Point(141, 182);
+            this.txtOnHand.Location = new System.Drawing.Point(141, 162);
             this.txtOnHand.Name = "txtOnHand";
             this.txtOnHand.ReadOnly = true;
             this.txtOnHand.Size = new System.Drawing.Size(184, 26);
@@ -107,7 +110,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(36, 285);
+            this.btnAdd.Location = new System.Drawing.Point(20, 250);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(96, 36);
             this.btnAdd.TabIndex = 8;
@@ -117,7 +120,8 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(166, 285);
+            this.btnModify.Enabled = false;
+            this.btnModify.Location = new System.Drawing.Point(141, 250);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(88, 36);
             this.btnModify.TabIndex = 9;
@@ -128,7 +132,7 @@
             // btnDelete
             // 
             this.btnDelete.Enabled = false;
-            this.btnDelete.Location = new System.Drawing.Point(294, 285);
+            this.btnDelete.Location = new System.Drawing.Point(255, 250);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 36);
             this.btnDelete.TabIndex = 10;
@@ -138,7 +142,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(508, 285);
+            this.btnExit.Location = new System.Drawing.Point(540, 250);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 36);
             this.btnExit.TabIndex = 11;
@@ -166,7 +170,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 238);
+            this.label5.Location = new System.Drawing.Point(16, 203);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 20);
             this.label5.TabIndex = 14;
@@ -174,11 +178,31 @@
             // 
             // txtLocation
             // 
-            this.txtLocation.Location = new System.Drawing.Point(141, 238);
+            this.txtLocation.Location = new System.Drawing.Point(141, 203);
             this.txtLocation.Name = "txtLocation";
             this.txtLocation.ReadOnly = true;
             this.txtLocation.Size = new System.Drawing.Size(184, 26);
             this.txtLocation.TabIndex = 15;
+            // 
+            // dataInventoryView1
+            // 
+            this.dataInventoryView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataInventoryView1.Location = new System.Drawing.Point(20, 359);
+            this.dataInventoryView1.Name = "dataInventoryView1";
+            this.dataInventoryView1.RowHeadersWidth = 62;
+            this.dataInventoryView1.RowTemplate.Height = 28;
+            this.dataInventoryView1.Size = new System.Drawing.Size(940, 176);
+            this.dataInventoryView1.TabIndex = 16;
+            // 
+            // btnInventory
+            // 
+            this.btnInventory.Location = new System.Drawing.Point(378, 250);
+            this.btnInventory.Name = "btnInventory";
+            this.btnInventory.Size = new System.Drawing.Size(89, 36);
+            this.btnInventory.TabIndex = 17;
+            this.btnInventory.Text = "Inventory";
+            this.btnInventory.UseVisualStyleBackColor = true;
+            this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click);
             // 
             // frmStoreInventory
             // 
@@ -186,7 +210,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(671, 362);
+            this.ClientSize = new System.Drawing.Size(979, 576);
+            this.Controls.Add(this.btnInventory);
+            this.Controls.Add(this.dataInventoryView1);
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtProductCode);
@@ -205,6 +231,7 @@
             this.Name = "frmStoreInventory";
             this.Text = "Track-It";
             this.Load += new System.EventHandler(this.frmStoreInventory_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataInventoryView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,6 +254,8 @@
         private System.Windows.Forms.TextBox txtProductCode;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLocation;
+        private System.Windows.Forms.DataGridView dataInventoryView1;
+        private System.Windows.Forms.Button btnInventory;
     }
 }
 

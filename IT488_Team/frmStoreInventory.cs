@@ -27,11 +27,15 @@ namespace IT488_Team
                         MessageBox.Show("No product found with this code. " +
                             "Please try again.", "Product Not Found");
                             ClearControls();
+                        btnDelete.Enabled = false;
+                        btnModify.Enabled = false;
+
                     }
                     else
                     {
                             DisplayProduct();
                             btnDelete.Enabled = true;
+                            btnModify.Enabled = true;
                     }
                 }
                 catch (SqlException ex)
@@ -146,14 +150,20 @@ namespace IT488_Team
 
         private Product CloneProduct()
         {
-            return new Product()
-            {
-                ProductCode = selectedProduct.ProductCode,
-                StorLocation = selectedProduct.StorLocation,
-                Description = selectedProduct.Description,
-                UnitPrice = selectedProduct.UnitPrice,
-                OnHandQuantity = selectedProduct.OnHandQuantity
-            };
+            
+            
+                return new Product()
+                {
+                    ProductCode = selectedProduct.ProductCode,
+                    StorLocation = selectedProduct.StorLocation,
+                    Description = selectedProduct.Description,
+                    UnitPrice = selectedProduct.UnitPrice,
+                    OnHandQuantity = selectedProduct.OnHandQuantity
+                };
+            
+           
+            
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -224,6 +234,11 @@ namespace IT488_Team
         private void frmStoreInventory_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnInventory_Click(object sender, EventArgs e)
+        {
+            dataInventoryView1.DataSource = ProductDB.displayInvtory();
         }
 
         // private void txtProductCode_TextChanged(object sender, EventArgs e)

@@ -148,7 +148,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(590, 346);
+            this.ClientSize = new System.Drawing.Size(590, 348);
             this.ControlBox = false;
             this.Controls.Add(this.txtLocation);
             this.Controls.Add(this.label5);
