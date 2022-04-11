@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -67,7 +68,6 @@
     <Compile Include="logIn.Designer.cs">
       <DependentUpon>logIn.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataLayer\TrackITDB.cs" />
     <Compile Include="Models\DataLayer\Product.cs" />
     <Compile Include="Models\DataLayer\ProductDB.cs" />
     <Compile Include="Program.cs" />

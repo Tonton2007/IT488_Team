@@ -2,14 +2,17 @@
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using IT488_Team.Models.DataLayer;
+using System.Data;
 
 namespace IT488_Team
 {
     public partial class frmStoreInventory : Form
     {
-        public frmStoreInventory()
+        private ProductDB ProductDB;
+        public frmStoreInventory(ProductDB productDB)
         {
-                InitializeComponent();
+            InitializeComponent();
+            this.ProductDB = productDB;
         }
 
         Product selectedProduct;
@@ -219,7 +222,7 @@ namespace IT488_Team
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
 
         private void frmStoreInventory_Load(object sender, EventArgs e)
@@ -229,7 +232,15 @@ namespace IT488_Team
 
         private void btnInventory_Click(object sender, EventArgs e)
         {
-            dataInventoryView1.DataSource = ProductDB.displayInvtory();
+            try
+            {
+                DataSet productData = ProductDB.displayInvtory();
+                dataInventoryView1.DataSource = productData.Tables["Products"].DefaultView;
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
         }
 
         // private void txtProductCode_TextChanged(object sender, EventArgs e)
