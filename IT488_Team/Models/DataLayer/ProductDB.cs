@@ -1,26 +1,57 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
 namespace IT488_Team.Models.DataLayer
 {
-    public static class ProductDB
+    public class ProductDB
     {
-        public static Product GetProduct(string productCode)
+        private string connectionString;
+
+        public ProductDB(string connectionString)
+        {
+            this.connectionString = connectionString;
+            EstablishConnection().Close();
+        }
+        private SqlConnection EstablishConnection()
+        {
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                connection.Open();
+                return connection;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+        public bool TestConnection()
+        {
+            try
+            {
+                EstablishConnection();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Product GetProduct(string productCode)
         {
             string selectStatement = "SELECT ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation " +
                                      "FROM Products " +
                                      "WHERE ProductCode = @ProductCode";
-            SqlConnection sqlConnection = new SqlConnection(TrackITDB.ConnectionString);
-            using SqlConnection connection = sqlConnection;
-
-
-
-            using SqlCommand command = new SqlCommand(selectStatement, connection);
-
+            
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = selectStatement;
+            command.Connection = sqlConnection;
 
             command.Parameters.AddWithValue("@ProductCode", productCode);
-            connection.Open();
+
 
             Product product = null;   // default value
             using SqlDataReader reader = command.ExecuteReader(
@@ -39,22 +70,27 @@ namespace IT488_Team.Models.DataLayer
             return product;
         }
 
-        public static void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
             string insertStatement = "INSERT Products (ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation) " +
                                      "VALUES (@ProductCode, @Description, @UnitPrice, @OnHandQuantity, @StorLocation)";
-            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
-            using SqlCommand command = new SqlCommand(insertStatement, connection);
+            
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = insertStatement;
+            command.Connection = sqlConnection;
+            
             command.Parameters.AddWithValue("@ProductCode", product.ProductCode);
             command.Parameters.AddWithValue("@Description", product.Description);
             command.Parameters.AddWithValue("@UnitPrice", product.UnitPrice);
             command.Parameters.AddWithValue("@OnHandQuantity", product.OnHandQuantity);
             command.Parameters.AddWithValue("@StorLocation", product.StorLocation);
-            connection.Open();
             command.ExecuteNonQuery();
+            
+            sqlConnection.Close();
         }
 
-        public static bool UpdateProduct(Product oldProduct, Product newProduct)
+        public bool UpdateProduct(Product oldProduct, Product newProduct)
         {
             string updateStatement = "UPDATE Products SET " +
                 "ProductCode = @NewProductCode, " +
@@ -67,8 +103,12 @@ namespace IT488_Team.Models.DataLayer
                 "AND UnitPrice = @OldUnitPrice " +
                 "AND OnHandQuantity = @OldOnHandQuantity " +
                 "AND StorLocation= @OldStorLocation";
-            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
-            using SqlCommand command = new SqlCommand(updateStatement, connection);
+
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = updateStatement;
+            command.Connection = sqlConnection;
+
             command.Parameters.AddWithValue("@NewProductCode", newProduct.ProductCode);
             command.Parameters.AddWithValue("@NewDescription", newProduct.Description);
             command.Parameters.AddWithValue("@NewUnitPrice", newProduct.UnitPrice);
@@ -80,13 +120,15 @@ namespace IT488_Team.Models.DataLayer
             command.Parameters.AddWithValue("@OldDescription", oldProduct.Description);
             command.Parameters.AddWithValue("@OldUnitPrice", oldProduct.UnitPrice);
             command.Parameters.AddWithValue("@OldOnHandQuantity", oldProduct.OnHandQuantity);
-            connection.Open();
+
             int count = command.ExecuteNonQuery();
+
+            sqlConnection.Close();
 
             return (count > 0);
         }
 
-        public static bool DeleteProduct(Product product)
+        public bool DeleteProduct(Product product)
         {
             string deleteStatement = "DELETE Products " +
                 "WHERE ProductCode = @ProductCode " +
@@ -94,32 +136,44 @@ namespace IT488_Team.Models.DataLayer
                 "AND UnitPrice = @UnitPrice " +
                 "AND OnHandQuantity = @OnHandQuantity " +
                 "AND StorLocation = @StorLocation ";
-            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
-            using SqlCommand command = new SqlCommand(deleteStatement, connection);
+
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = deleteStatement;
+            command.Connection = sqlConnection;
+
             command.Parameters.AddWithValue("@ProductCode", product.ProductCode);
             command.Parameters.AddWithValue("@Description", product.Description);
             command.Parameters.AddWithValue("@UnitPrice", product.UnitPrice);
             command.Parameters.AddWithValue("@OnHandQuantity", product.OnHandQuantity);
             command.Parameters.AddWithValue("@StorLocation", product.StorLocation);
-            connection.Open();
+            
             int count = command.ExecuteNonQuery();
+
+            sqlConnection.Close();
 
             return (count > 0);
         }
         //scan one at a time
-        public static void SimulateConcurrentUpdate(string productCode)
+        public void SimulateConcurrentUpdate(string productCode)
         {
             string updateStatement =
                 "UPDATE Products " +
                 "SET OnHandQuantity = OnHandQuantity - 1" +
                 "WHERE ProductCode = @ProductCode";
-            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
-            using SqlCommand command = new SqlCommand(updateStatement, connection);
+
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = updateStatement;
+            command.Connection = sqlConnection;
+
             command.Parameters.AddWithValue("@ProductCode", productCode);
-            connection.Open();
+            
             command.ExecuteNonQuery();
+
+            sqlConnection.Close();
         }
-        public static bool LoginPassword(string theUsername, string thePassword)
+        public bool LoginPassword(string theUsername, string thePassword)
         {
             var datasource = @"DESKTOP-JOLUDPU\SQLEXPRESS"; 
             var database = "TrackIT";
@@ -141,23 +195,29 @@ namespace IT488_Team.Models.DataLayer
 
 
         }
-        public static DataTable  displayInvtory()
+        public DataSet displayInvtory()
         {
             string viewInventory =
                             "SELECT ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation FROM Products";
-            using SqlConnection connection = new SqlConnection(TrackITDB.ConnectionString);
+
+            SqlConnection sqlConnection = EstablishConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandText = viewInventory;
+            command.Connection = sqlConnection;
+
+
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            DataSet dataSet = new DataSet();
+            try
             {
-                connection.Open();
-                using SqlDataAdapter command = new SqlDataAdapter(viewInventory, connection);
-                DataTable dt = new DataTable();
-                command.Fill(dt);
-                return dt;
-                
-
+                sqlDataAdapter.Fill(dataSet, "Products");
+                sqlConnection.Close();
+                return dataSet;
             }
-            //frmStoreInventory.dataInventoryView1.DataSource = dt;
-            //dataGridView1.DataMember = "ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation";
-
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }
