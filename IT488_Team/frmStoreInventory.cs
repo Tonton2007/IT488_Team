@@ -153,8 +153,6 @@ namespace IT488_Team
 
         private Product CloneProduct()
         {
-            
-            
                 return new Product()
                 {
                     ProductCode = selectedProduct.ProductCode,
@@ -163,10 +161,6 @@ namespace IT488_Team
                     UnitPrice = selectedProduct.UnitPrice,
                     OnHandQuantity = selectedProduct.OnHandQuantity
                 };
-            
-           
-            
-
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -229,11 +223,6 @@ namespace IT488_Team
             MessageBox.Show(ex.Message, ex.GetType().ToString());
         }
 
-        private void btnExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void frmStoreInventory_Load(object sender, EventArgs e)
         {
 
@@ -243,7 +232,7 @@ namespace IT488_Team
         {
             try
             {
-                DataSet productData = ProductDB.displayInvtory();
+                DataSet productData = ProductDB.displayInventory();
                 dataInventoryView1.DataSource = productData.Tables["Products"].DefaultView;
             }
             catch(Exception exp)
@@ -252,9 +241,16 @@ namespace IT488_Team
             }
         }
 
-        // private void txtProductCode_TextChanged(object sender, EventArgs e)
-        //{
-        // txtProductCode.Focus();
-        //
+        private void logoutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void reportingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            ReportWindow reportWindow = new ReportWindow(this.ProductDB);
+            reportWindow.ShowDialog();
+        }
     }
 }

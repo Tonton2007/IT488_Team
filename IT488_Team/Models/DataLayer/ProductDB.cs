@@ -195,7 +195,7 @@ namespace IT488_Team.Models.DataLayer
 
 
         }
-        public DataSet displayInvtory()
+        public DataSet displayInventory()
         {
             string viewInventory =
                             "SELECT ProductCode, Description, UnitPrice, OnHandQuantity, StorLocation FROM Products";
