@@ -14,6 +14,12 @@ namespace IT488_Team
         {
             InitializeComponent();
             ServerTextBox.Text = ConfigurationManager.AppSettings["defaultServer"];
+
+            if(!CheckDatabaseExists(ServerTextBox.Text))
+            {
+                var setupForm = new SetupForm(new SqlConnection($"server={ServerTextBox.Text};Trusted_Connection=yes"));
+                setupForm.Show();
+            }
         }
 
         public bool InitializeDBConnection(string username, string password, string server)
@@ -73,6 +79,46 @@ namespace IT488_Team
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private bool CheckDatabaseExists(string server)
+        {
+            string sqlCreateDBQuery;
+            bool result = false;
+
+            try
+            {
+                var tmpConn = new SqlConnection($"server={server};Trusted_Connection=yes");
+
+                sqlCreateDBQuery = string.Format("SELECT database_id FROM sys.databases WHERE Name = 'TrackITT'");
+        
+                using (tmpConn)
+                {
+                    using (SqlCommand sqlCmd = new SqlCommand(sqlCreateDBQuery, tmpConn))
+                    {
+                        tmpConn.Open();
+
+                        object resultObj = sqlCmd.ExecuteScalar();
+
+                        int databaseID = 0;
+
+                        if (resultObj != null)
+                        {
+                            int.TryParse(resultObj.ToString(), out databaseID);
+                        }
+
+                        tmpConn.Close();
+
+                        result = (databaseID > 0);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }

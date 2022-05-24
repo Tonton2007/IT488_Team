@@ -1,0 +1,17 @@
+USE [TrackIT]
+
+SET ANSI_NULLS ON
+
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[Products](
+	[ProductCode] [char](10) NOT NULL,
+	[Description] [varchar](50) NOT NULL,
+	[UnitPrice] [money] NOT NULL,
+	[OnHandQuantity] [int] NOT NULL,
+	[StorLocation] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_Products] PRIMARY KEY CLUSTERED 
+(
+	[ProductCode] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
