@@ -17,7 +17,7 @@ namespace IT488_Team
 
             if(!CheckDatabaseExists(ServerTextBox.Text))
             {
-                var setupForm = new SetupForm(new SqlConnection($"server={ServerTextBox.Text};Trusted_Connection=yes"));
+                var setupForm = new SetupForm();
                 setupForm.Show();
             }
         }

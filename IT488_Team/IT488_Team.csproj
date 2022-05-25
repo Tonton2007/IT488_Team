@@ -125,9 +125,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="SQLScripts\CreateTrackItTable.sql" />
-    <Content Include="SQLScripts\CreateTrackItDB.sql" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

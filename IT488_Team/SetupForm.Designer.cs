@@ -35,6 +35,8 @@ namespace IT488_Team
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.createDBButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.trackItServer = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // databaseUsername
@@ -82,7 +84,7 @@ namespace IT488_Team
             // 
             // createDBButton
             // 
-            this.createDBButton.Location = new System.Drawing.Point(156, 191);
+            this.createDBButton.Location = new System.Drawing.Point(161, 238);
             this.createDBButton.Name = "createDBButton";
             this.createDBButton.Size = new System.Drawing.Size(75, 23);
             this.createDBButton.TabIndex = 5;
@@ -90,11 +92,29 @@ namespace IT488_Team
             this.createDBButton.UseVisualStyleBackColor = true;
             this.createDBButton.Click += new System.EventHandler(this.createDBButton_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(48, 189);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Default Server";
+            // 
+            // trackItServer
+            // 
+            this.trackItServer.Location = new System.Drawing.Point(146, 186);
+            this.trackItServer.Name = "trackItServer";
+            this.trackItServer.Size = new System.Drawing.Size(100, 20);
+            this.trackItServer.TabIndex = 6;
+            // 
             // SetupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(406, 319);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.trackItServer);
             this.Controls.Add(this.createDBButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -116,5 +136,7 @@ namespace IT488_Team
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button createDBButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox trackItServer;
     }
 }
